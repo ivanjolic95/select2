@@ -1470,10 +1470,12 @@ S2.define('select2/selection/base',[
       self.$selection.removeAttr('aria-activedescendant');
       self.$selection.removeAttr('aria-owns');
 
-      self.$selection.focus();
-      window.setTimeout(function () {
+      if (self.options.get('focusAfterClose')) {
         self.$selection.focus();
-      }, 0);
+        window.setTimeout(function () {
+          self.$selection.focus();
+        }, 0);
+      }
 
       self._detachCloseHandler(container);
     });
@@ -4987,6 +4989,7 @@ S2.define('select2/defaults',[
       maximumSelectionLength: 0,
       minimumResultsForSearch: 0,
       selectOnClose: false,
+      focusAfterClose: true,
       sorter: function (data) {
         return data;
       },
